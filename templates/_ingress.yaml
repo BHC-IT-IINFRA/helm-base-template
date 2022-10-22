@@ -1,0 +1,29 @@
+{{- define "base-api-chart.ingress.tpl" -}}
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    service.beta.kubernetes.io/do-loadbalancer-hostname: kube.bhc-it.online
+    service.beta.kubernetes.io/scw-loadbalancer-use-hostname: "true"
+spec:
+  tls:
+  - hosts:
+    - kube.bhc-it.online
+    secretName: kubernetes-tls
+  rules:
+  - host: kube.bhc-it.online
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{.Values.application.name}}
+            port:
+              number: 80
+
+{{ end }}

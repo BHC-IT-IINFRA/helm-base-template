@@ -1,0 +1,32 @@
+{{- define "base-api-chart.deployment.tpl" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: rest-api
+  name: {{.Values.application.name}}
+spec:
+  replicas: {{.Values.replicaCount}}
+  selector:
+    matchLabels:
+      app: rest-api
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: rest-api
+    spec:
+      containers:
+      - image: {{.Values.image.repository}}
+        name: api
+        imagePullPolicy: {{.Values.image.pullPolicy}}
+        resources: {}
+        ports:
+          - containerPort: 3000
+      imagePullSecrets:
+        - name: docker-cfg
+status: {}
+
+{{ end }}

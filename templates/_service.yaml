@@ -1,0 +1,17 @@
+{{- define "base-api-chart.service.tpl" -}}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Values.application.name}}
+  labels:
+    run: {{.Values.application.name}}
+spec:
+  ports:
+  - port: 80
+    targetPort: 3000
+    protocol: TCP
+  selector:
+    app: {{.Values.application.name}}
+  type: ClusterIP
+{{ end }}
