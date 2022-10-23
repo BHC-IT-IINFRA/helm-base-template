@@ -13,13 +13,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    {{- range .Values.domain.hosts -}}
-    - {{ . }}
+    - {{ .Values.domain.host }}
     secretName: kubernetes-tls
-    {{- end -}}
   rules:
-  {{- range .Values.domain.hosts -}}
-  - host: {{ . }}
+  - host: {{ .Values.domain.host }}
     http:
       paths:
       - path: /
@@ -29,6 +26,5 @@ spec:
             name: {{ .Values.application.name }}
             port:
               number: 80
-  {{- end -}}
 
 {{ end }}
