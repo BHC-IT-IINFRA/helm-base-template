@@ -15,8 +15,8 @@ spec:
   - hosts: |-
     {{- range .Values.hosts }}
     - {{ . }}
-    {{- end }}
     secretName: kubernetes-tls
+    {{- end }}
   rules: |-
   {{- range .Values.hosts }}
   - host: {{ . }}
