@@ -13,12 +13,12 @@ metadata:
 spec:
   tls:
   - hosts: |-
-    {{- range .Values.pizzaToppings }}
+    {{- range .Values.hosts }}
     - {{ . }}
     {{- end }}
     secretName: kubernetes-tls
   rules: |-
-  {{- range .Values.pizzaToppings }}
+  {{- range .Values.hosts }}
   - host: {{ . }}
     http:
       paths:
