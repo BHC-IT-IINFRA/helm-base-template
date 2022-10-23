@@ -3,27 +3,32 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: test-ingress
+  name: {{ .Values.application.name }}-in
+  namespace: {{ .Values.application.namespace | default "default" }}
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    service.beta.kubernetes.io/do-loadbalancer-hostname: kube.bhc-it.online
+    service.beta.kubernetes.io/do-loadbalancer-hostname: {{.Values.domain.host}}
     service.beta.kubernetes.io/scw-loadbalancer-use-hostname: "true"
 spec:
   tls:
-  - hosts:
-    - kube.bhc-it.online
+  - hosts: |-
+    {{- range .Values.pizzaToppings }}
+    - {{ . }}
+    {{- end }}
     secretName: kubernetes-tls
-  rules:
-  - host: kube.bhc-it.online
+  rules: |-
+  {{- range .Values.pizzaToppings }}
+  - host: {{ . }}
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: {{.Values.application.name}}
+            name: {{ .Values.application.name }}
             port:
               number: 80
+  {{- end }}
 
 {{ end }}

@@ -1,0 +1,12 @@
+{{- define "base-api-chart.configMap.tpl" -}}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.application.name }}-cm
+  namespace: {{ .Values.application.namespace | default "default" }}
+data:
+  {{ .Values.application.env }}
+
+
+{{- end -}}
