@@ -12,13 +12,13 @@ metadata:
     service.beta.kubernetes.io/scw-loadbalancer-use-hostname: "true"
 spec:
   tls:
-  - hosts: |-
-    {{- range .Values.hosts }}
+  - hosts:
+    {{- range .Values.hosts -}}
     - {{ . }}
     secretName: kubernetes-tls
-    {{- end }}
-  rules: |-
-  {{- range .Values.hosts }}
+    {{- end -}}
+  rules:
+  {{- range .Values.hosts -}}
   - host: {{ . }}
     http:
       paths:
@@ -29,6 +29,6 @@ spec:
             name: {{ .Values.application.name }}
             port:
               number: 80
-  {{- end }}
+  {{- end -}}
 
 {{ end }}
