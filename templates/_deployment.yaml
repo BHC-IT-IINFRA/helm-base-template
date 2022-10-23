@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - image: {{ .Values.image.repository }}
-        name: api
+        name: {{ .Values.application.name }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         resources: {}
         ports:
