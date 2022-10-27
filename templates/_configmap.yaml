@@ -6,7 +6,8 @@ metadata:
   name: {{ .Values.application.name }}-cm
   namespace: {{ .Values.application.namespace | default "default" }}
 data:
-  {{ .Values.application.env }}
-
+  {{ range .Values.application.env }}
+  {{ . }}
+  {{- end -}}
 
 {{- end -}}
