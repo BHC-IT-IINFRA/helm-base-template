@@ -23,7 +23,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: {{ .Values.application.name }}
+            name: {{ .Values.application.name }}-svc
             port:
               number: 80
 

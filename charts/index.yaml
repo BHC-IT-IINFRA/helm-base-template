@@ -3,12 +3,12 @@ entries:
   base-api-chart:
   - apiVersion: v2
     appVersion: 1.16.1
-    created: "2022-11-01T16:38:50.032236605+01:00"
+    created: "2022-11-01T16:45:07.791657237+01:00"
     description: A Helm chart for Kubernetes
-    digest: c0e98db4bf3031d1fc1241308e1d5f52fbc8f0ac980129af15f54cb04baf5bc3
+    digest: 4c2194bd6d23b0cace9356b6958dabc4e0da08b98c1ee59e580ec9eaf1a2af41
     name: base-api-chart
     type: library
     urls:
     - base-api-chart-1.0.0.tgz
     version: 1.0.0
-generated: "2022-11-01T16:38:49.881854268+01:00"
+generated: "2022-11-01T16:45:07.493929667+01:00"
