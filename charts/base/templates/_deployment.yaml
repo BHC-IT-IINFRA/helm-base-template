@@ -24,6 +24,8 @@ spec:
       - image: {{ .Values.image.repository }}
         name: {{ .Values.application.name }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        {{ if .Values.env }}env:
+{{ toYaml .Values.env | indent 8 }}{{ end }}
         resources: {}
         ports:
           - containerPort: 3000
