@@ -25,7 +25,8 @@ spec:
         name: {{ .Values.application.name }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         {{ if .Values.env }}env:
-{{ toYaml .Values.env | indent 8 }}{{ end }}
+{{ toYaml .Values.env | indent 8 }}{{ end }}{{ if .Values.envFromTerraform }}
+{{ toYaml .Values.envFromTerraform | indent 8 }}{{ end }}
         resources: {}
         ports:
           - containerPort: 3000
