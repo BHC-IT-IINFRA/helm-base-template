@@ -5,6 +5,10 @@ kind: Service
 metadata:
   name: {{ .Values.application.name }}-svc
   namespace: {{ .Values.application.namespace | default "default" }}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/metrics"
+    prometheus.io/scheme: "http"
   labels:
     run: {{ .Values.application.name }}
 spec:
