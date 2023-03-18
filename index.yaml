@@ -3,6 +3,16 @@ entries:
   base-api-chart:
   - apiVersion: v2
     appVersion: 1.16.1
+    created: "2023-03-18T17:12:52.352031134Z"
+    description: A Helm chart for Kubernetes
+    digest: f082231644f962c9baf4094a91b9f8645276349b561b5d5a20eb09720f878d76
+    name: base-api-chart
+    type: library
+    urls:
+    - https://github.com/BHC-IT-IINFRA/helm-base-template/releases/download/base-api-chart-1.0.8/base-api-chart-1.0.8.tgz
+    version: 1.0.8
+  - apiVersion: v2
+    appVersion: 1.16.1
     created: "2023-03-18T16:30:16.613884296Z"
     description: A Helm chart for Kubernetes
     digest: 66e88e7a89374d32980a053825ee14a446b4095c927e4f7ad645dbcf79cc73fb
@@ -81,4 +91,4 @@ entries:
     urls:
     - https://github.com/BHC-IT-IINFRA/helm-base-template/releases/download/base-api-chart-1.0.0/base-api-chart-1.0.0.tgz
     version: 1.0.0
-generated: "2023-03-18T16:30:16.613925397Z"
+generated: "2023-03-18T17:12:52.352281138Z"
