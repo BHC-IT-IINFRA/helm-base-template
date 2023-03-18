@@ -8,7 +8,7 @@ metadata:
   creationTimestamp: null
   labels:
     app: {{ .Values.application.name }}
-    relase: prometheus
+    release: prometheus
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:

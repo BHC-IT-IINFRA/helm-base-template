@@ -11,7 +11,7 @@ metadata:
     prometheus.io/scheme: "http"
   labels:
     run: {{ .Values.application.name }}
-    relase: prometheus
+    release: prometheus
 spec:
   ports:
   - port: 80
