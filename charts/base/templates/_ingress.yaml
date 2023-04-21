@@ -9,7 +9,6 @@ metadata:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod
     cert-manager.io/issue-temporary-certificate: "true"
-    acme.cert-manager.io/http01-edit-in-place: "true"
     service.beta.kubernetes.io/do-loadbalancer-hostname: {{ .Values.domain.host }}
     service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: "true"
     service.beta.kubernetes.io/scw-loadbalancer-use-hostname: "true"
