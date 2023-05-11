@@ -1,4 +1,4 @@
-{{- define "base-api-chart.configMap.tpl" -}}
+{{- define "base-api-chart.servicemonitor.tpl" -}}
 
 ---
 {{ if (.Values.monitoring).enabled }}
