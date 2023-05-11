@@ -3,8 +3,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Values.application.name }}-ingress
-  namespace: {{ .Values.application.namespace | default "default" }}
+  name: {{ .Values.application.name | default .Release.Name }}-ingress
+  namespace: {{ .Values.application.namespace | default .Release.Namespace | default "default" }}
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod

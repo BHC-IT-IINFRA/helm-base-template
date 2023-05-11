@@ -3,8 +3,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.application.name }}-cm
-  namespace: {{ .Values.application.namespace | default "default" }}
+  name: {{ .Values.application.name | default .Release.Name }}-cm
+  namespace: {{ .Values.application.namespace | default .Release.Namespace | default "default" }}
 data:
   {{ range .Values.application.env }}
   {{ . }}

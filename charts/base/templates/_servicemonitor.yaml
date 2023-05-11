@@ -1,0 +1,33 @@
+{{- define "base-api-chart.configMap.tpl" -}}
+
+---
+{{ if (.Values.monitoring).enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+    name: prometheus-{{ .Values.application.name }}-service-monitor
+    namespace: default
+    labels:
+        app: {{ .Values.application.name | default .Release.Name }}
+        release: prometheus # name of the release
+        # ( VERY IMPORTANT: You need to know the correct release name by viewing
+        # the servicemonitor of Prometheus itself: Without the correct name,
+        #  Prometheus cannot identify the metrics of the Flask app as the target.)
+spec:
+    selector:
+        matchLabels:
+            # Target app service
+            run: {{ .Values.application.name | default .Release.Name }} # same as above
+            release: prometheus # same as above
+    endpoints:
+        - interval: {{ (.Values.monitoring).scrapInterval | default "15s"}} # scrape interval
+          path: {{ (.Values.monitoring).scrapPath | default "/metrics"}} # path to scrape
+          port: {{ (.Values.monitoring).scrapPort | default "http"}} # named port in target app
+    namespaceSelector:
+        matchNames:
+            - {{ .Values.application.namespace | default .Release.Namespace }} # namespace where the app is running
+
+{{- end -}}
+---
+
+{{- end -}}
