@@ -33,6 +33,7 @@ spec:
           - containerPort: 3000
       imagePullSecrets:
         - name: docker-cfg
+  revisionHistoryLimit: 2
 status: {}
 
 {{ end }}
