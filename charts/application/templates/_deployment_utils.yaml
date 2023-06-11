@@ -30,10 +30,10 @@
 
 {{- define "application-chart.ressources.yaml" -}}
 {{- if ne .application.noLimits true }}
-  request:
+  requests:
     cpu: {{ .application.cpuRequest | default "10m" }}
     memory: {{ .application.memoryRequest | default "128Mi" }}
-  limit:
+  limits:
     cpu: {{ .application.cpuLimit | default "100m" }}
     memory: {{ .application.memoryLimit | default "512Mi" }}
 {{- end }}
