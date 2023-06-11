@@ -5,7 +5,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}-{{ .env }}-ingress
+  name: {{ .Release.Name }}-ingress
   namespace: {{ .Release.Namespace | default "default" }}
   annotations:
     kubernetes.io/ingress.class: nginx
@@ -23,7 +23,7 @@ spec:
   {{- end }}
   rules:
   {{- range $k, $v := .Values.applications }}
-  - host: {{ .env }}.{{ $v.host }}
+  - host: {{ $.Values.env }}.{{ $v.host }}
     http:
       paths:
       - path: /
