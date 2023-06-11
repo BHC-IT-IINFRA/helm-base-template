@@ -18,8 +18,8 @@ spec:
   tls:
   {{- range $k, $v := .Values.applications }}
   - hosts:
-    - {{ $v.host }}
-    secretName: ingress-{{ $k }}-tls
+    - {{ $.Values.env }}-{{ $v.host }}
+    secretName: ingress-{{ $k }}-{{ $v.env }}-tls
   {{- end }}
   rules:
   {{- range $k, $v := .Values.applications }}
