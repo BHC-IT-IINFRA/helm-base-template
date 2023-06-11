@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: {{ .application.name }}
-        image: {{ .application.repository | default "registry.digitalocean.com/authapi" }}:{{ .application.image }}
+        image: {{ .application.repository | default "registry.digitalocean.com/authapi" }}/{{ .application.image }}
         imagePullPolicy: {{ .application.pullPolicy | default "Always" }}
         ports:
           - containerPort: {{ .application.port | default 3000}}
