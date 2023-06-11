@@ -23,7 +23,7 @@ spec:
   {{- end }}
   rules:
   {{- range $k, $v := .Values.applications }}
-  - host: {{ $v.host }}
+  - host: {{ .env }}.{{ $v.host }}
     http:
       paths:
       - path: /
