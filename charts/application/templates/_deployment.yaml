@@ -5,7 +5,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .application.name | default .Release.Name }}
+  name: {{ .application.name | default .Release.Name }}-{{ .env }}
   namespace: {{ .Release.Namespace | default "default" }}
   creationTimestamp: null
   annotations:
@@ -14,16 +14,16 @@ metadata:
     app: {{ .application.name }}
     release: prometheus
 spec:
-  replicas: {{ .application.replicaCount }}
+  replicas: {{ .application.replicaCount | default 1 }}
   selector:
     matchLabels:
-      app: {{ .application.name }}
+      app: {{ .application.name }}-{{ .env }}
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: {{ .application.name }}
+        app: {{ .application.name }}-{{ .env }}
     spec:
       containers:
       - name: {{ .application.name }}

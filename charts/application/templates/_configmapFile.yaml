@@ -7,7 +7,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .application.name | default .Release.Name }}-configFile-cm
+  name: {{ .application.name | default .Release.Name }}-{{ .env }}-configFile-cm
   namespace: {{ default .Release.Namespace | default "default" }}
 data: |-
   {{ .config | indent 4 }}

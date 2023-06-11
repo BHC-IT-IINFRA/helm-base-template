@@ -9,6 +9,7 @@
             "Values" $.Values
             "Chart" $.Chart
             "Release" $.Release
+            "env" $.Values.env
             "application" ( merge (dict "name" $k) $v )
             "terraformedEnv" ( get ($.Values.terraformedEnv | default dict) $k)
             "config" ( $.Files.Get ( printf "config.%s.yaml" $k ))
