@@ -30,7 +30,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: {{ $k }}-svc
+            name: {{ $k }}-{{ $.Values.env }}-svc
             port:
               number: 80
   {{- end }}
