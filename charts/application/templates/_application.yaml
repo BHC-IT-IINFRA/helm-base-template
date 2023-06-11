@@ -1,0 +1,28 @@
+{{- define "application-chart.yaml" -}}
+
+---
+
+{{- range $k, $v := $.Values.applications -}}
+
+    {{
+        $params := dict
+            "Values" $.Values
+            "Chart" $.Chart
+            "Release" $.Release
+            "application" ( merge (dict "name" $k) $v )
+            "terraformedEnv" ( get ($.Values.terraformedEnv | default dict) $k)
+            "config" ( $.Files.Get ( printf "config.%s.yaml" $k ))
+    }}
+
+    {{- template "application-chart.deployment.yaml" $params -}}
+    {{- template "application-chart.service.yaml" $params -}}
+    {{- template "application-chart.servicemonitor.yaml" $params -}}
+    {{- template "application-chart.configMapFile.yaml" $params -}}
+
+{{- end -}}
+
+{{- template "application-chart.ingress.yaml" . -}}
+
+---
+
+{{- end -}}

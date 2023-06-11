@@ -1,0 +1,40 @@
+{{- define "application-chart.envDeployment.yaml" -}}
+{{- range $k, $v := .application.env }}
+  - name: {{ $k }}
+    value: {{ $v }}
+{{- end }}
+{{- if .terraformedEnv }}
+{{- range $k, $v := .terraformedEnv }}
+  - name: {{ $k }}
+    value: {{ $v }}
+{{- end }}
+{{- end }}
+{{- end -}}
+
+---
+
+{{- define "application-chart.volumeMounts.yaml" -}}
+{{- if .config }}
+  - name: {{ .application.name }}-configFile-config
+    mountPath: /app/config
+{{- end }}
+{{- if .application.volumeMounts }}
+{{- range .application.volumeMounts }}
+  - name: {{ .name }}
+    mountPath: {{ .mountPath }}
+{{- end }}
+{{- end }}
+{{- end -}}
+
+---
+
+{{- define "application-chart.ressources.yaml" -}}
+{{- if ne .application.noLimits true }}
+  request:
+    cpu: {{ .application.cpuRequest | default "10m" }}
+    memory: {{ .application.memoryRequest | default "128Mi" }}
+  limit:
+    cpu: {{ .application.cpuLimit | default "100m" }}
+    memory: {{ .application.memoryLimit | default "512Mi" }}
+{{- end }}
+{{- end -}}

@@ -1,0 +1,37 @@
+{{- define "application-chart.servicemonitor.yaml" -}}
+
+
+{{ if (.application.monitoring).enabled }}
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+    name: prometheus-{{ .application.name }}-service-monitor
+    namespace: default
+    labels:
+        app: {{ .application.name | default .Release.Name }}
+        release: prometheus # name of the release
+        # ( VERY IMPORTANT: You need to know the correct release name by viewing
+        # the servicemonitor of Prometheus itself: Without the correct name,
+        #  Prometheus cannot identify the metrics of the app as the target.)
+spec:
+    selector:
+        matchLabels:
+            # Target app service
+            run: {{ .application.name | default .Release.Name }} # same as above
+            release: prometheus # same as above
+    endpoints:
+        - interval: {{ (.application.monitoring).scrapInterval | default "15s"}} # scrape interval
+          path: {{ (.application.monitoring).scrapPath | default "/metrics"}} # path to scrape
+          port: {{ (.application.monitoring).scrapPort | default "http"}} # named port in target app
+    namespaceSelector:
+        matchNames:
+            - {{ .Release.Namespace }} # namespace where the app is running
+
+---
+
+{{- end -}}
+
+{{- end -}}

@@ -1,0 +1,52 @@
+{{- define "application-chart.deployment.yaml" -}}
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .application.name | default .Release.Name }}
+  namespace: {{ .Release.Namespace | default "default" }}
+  creationTimestamp: null
+  annotations:
+    application: {{ .Release.Name }}
+  labels:
+    app: {{ .application.name }}
+    release: prometheus
+spec:
+  replicas: {{ .application.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .application.name }}
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .application.name }}
+    spec:
+      containers:
+      - name: {{ .application.name }}
+        image: {{ .application.repository | default "registry.digitalocean.com/authapi" }}:{{ .application.image }}
+        imagePullPolicy: {{ .application.pullPolicy }}
+        ports:
+          - containerPort: {{ .application.port | default 3000}}
+        volumeMounts: {{ include "application-chart.volumeMounts.yaml" . | indent 8 }}
+        {{- if .application.env }}
+        env: {{ include "application-chart.envDeployment.yaml" . | indent 8 }}
+        {{- end }}
+        resources: {{ include "application-chart.ressources.yaml" . | indent 8 }}
+      imagePullSecrets:
+        - name: {{ "docker-cfg" | default .application.imagePullSecrets }}
+      volumes:
+        {{- if .config }}
+        - name: {{ .application.name }}-configFile-config
+          configMap:
+            name: {{ .application.name }}-configFile-config
+        {{- end }}
+  revisionHistoryLimit: 2
+status: {}
+
+---
+
+{{ end }}

@@ -1,0 +1,19 @@
+{{- define "application-chart.configMapFile.yaml" -}}
+
+{{ if .config }}
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .application.name | default .Release.Name }}-configFile-cm
+  namespace: {{ default .Release.Namespace | default "default" }}
+data: |-
+  {{ .config | indent 4 }}
+
+---
+
+{{ end }}
+
+{{- end -}}

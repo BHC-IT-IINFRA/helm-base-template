@@ -1,0 +1,40 @@
+{{- define "application-chart.ingress.yaml" -}}
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-ingress
+  namespace: {{ .Release.Namespace | default "default" }}
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/issue-temporary-certificate: "true"
+    service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: "true"
+    service.beta.kubernetes.io/scw-loadbalancer-use-hostname: "true"
+    service.beta.kubernetes.io/do-loadbalancer-protocol: "http"
+spec:
+  tls:
+  {{- range $k, $v := .Values.applications }}
+  - hosts:
+    - {{ $v.host }}
+    secretName: ingress-{{ $k }}-tls
+  {{- end }}
+  rules:
+  {{- range $k, $v := .Values.applications }}
+  - host: {{ $v.host }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ $k }}-svc
+            port:
+              number: 80
+  {{- end }}
+
+---
+
+{{ end }}
