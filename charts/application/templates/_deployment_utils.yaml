@@ -6,7 +6,7 @@
 {{- if .terraformedEnv }}
 {{- range $k, $v := .terraformedEnv }}
   - name: {{ $k }}
-    value: {{ $v }}
+    value: "{{ $v }}"
 {{- end }}
 {{- end }}
 {{- end -}}
