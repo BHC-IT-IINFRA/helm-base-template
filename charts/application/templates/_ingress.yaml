@@ -17,12 +17,15 @@ metadata:
 spec:
   tls:
   {{- range $k, $v := .Values.applications }}
+  {{- if $v.host }}
   - hosts:
     - {{ $.Values.env }}.{{ $v.host }}
     secretName: ingress-{{ $k }}-{{ $.Values.env }}-tls
+  {{- end -}}
   {{- end }}
   rules:
   {{- range $k, $v := .Values.applications }}
+  {{- if $v.host }}
   - host: {{ $.Values.env }}.{{ $v.host }}
     http:
       paths:
@@ -33,6 +36,7 @@ spec:
             name: {{ $k }}-{{ $.Values.env }}-svc
             port:
               number: 80
+  {{- end -}}
   {{- end }}
 
 ---
