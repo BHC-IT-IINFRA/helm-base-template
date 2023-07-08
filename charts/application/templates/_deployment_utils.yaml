@@ -1,7 +1,7 @@
 {{- define "application-chart.envDeployment.yaml" -}}
 {{- range $k, $v := .application.env }}
   - name: {{ $k }}
-    value: {{ $v }}
+    value: "{{ $v }}"
 {{- end }}
 {{- if .terraformedEnv }}
 {{- range $k, $v := .terraformedEnv }}
