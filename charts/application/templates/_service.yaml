@@ -22,7 +22,7 @@ metadata:
 spec:
   ports:
   - name: http
-    port: 80
+    port: {{ .application.port | default 3000 }}
     targetPort: {{ .application.port | default 3000 }}
     protocol: TCP
   selector:

@@ -35,7 +35,7 @@ spec:
           service:
             name: {{ $k }}-{{ $.Values.env }}-svc
             port:
-              number: 80
+              number: {{ $v.port }}
   {{- end -}}
   {{- end }}
 
